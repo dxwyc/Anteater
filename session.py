@@ -17,6 +17,11 @@ class Session():
     def initrand(self):
         self.bound += random.randint(0, 5000)
 
+    def checkitem(self, item):
+        if item not in self._sess:
+            return False
+        return True
+
     def __getitem__(self, item):
         if item not in self._sess:
             raise SessionError('Session set doesn\'t contain this session!')
