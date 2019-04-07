@@ -1,5 +1,6 @@
 from flask import Flask, request, redirect
 import mysql.connector as mycnn
+from session import Session
 
 config = {
         'host': 'cd-cdb-hxo372tm.sql.tencentcdb.com',
@@ -16,5 +17,7 @@ try:
     cnn = mycnn.connect(**config)
 except myconn.Error as e:
     print('Connect fails!{}'.format(e))
+
+sess = Session()
 
 import views

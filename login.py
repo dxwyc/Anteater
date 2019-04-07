@@ -1,4 +1,4 @@
-from utils import cnn
+from utils import cnn, sess
 from flask import request, Blueprint
 import json
 
@@ -25,6 +25,8 @@ def index():
     status = ''
     code = 0
 
+    res['SID'] = 666
+
     if record == None:
         status = "The user entered doesn't exist!"
     elif record[2] != password:
@@ -32,8 +34,8 @@ def index():
     else:
         status = 'Successful login!'
         code = 1
+        res['SID'] = sess.insertuid(record[0])
 
-    res['SID'] = 32938
     res['code'] = code
     res['status'] = status
 
