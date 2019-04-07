@@ -13,6 +13,9 @@ def index():
         username = request.args.get('username', '--unfound')
         password = request.args.get('password', '--unk')
 
+    if username == '--unfound' or password == '--unk':
+        raise Exception('Username or password not found!')
+
     print('[Information]', username, ' , ', password)
 
     logincursor = cnn.cursor()
