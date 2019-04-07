@@ -24,7 +24,7 @@ class Session():
 
     def __getitem__(self, item):
         if item not in self._sess:
-            raise SessionError('Session set doesn\'t contain this session!')
+            raise SessionError("Session set doesn't contain this session!")
         else:
             return self._sess[item]
 
@@ -34,9 +34,9 @@ class Session():
             if sess_num not in self._sess:
                 return sess_num
 
-    def insertuid(self, uid):
+    def insertuid(self, uid, group):
         new_sess = self.gen_sess()
-        self._sess[new_sess] = uid
+        self._sess[new_sess] = (uid, group)
         return new_sess
 
 #sess = Session()

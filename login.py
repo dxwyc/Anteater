@@ -19,7 +19,7 @@ def index():
     print('[Information]', username, ' , ', password)
 
     logincursor = cnn.cursor()
-    logincursor.execute("SELECT uid, username, pwd FROM \
+    logincursor.execute("SELECT uid, username, pwd, group FROM \
             users WHERE username='{usrname}'".format(usrname=username))
 
     record = logincursor.fetchone()
@@ -37,7 +37,7 @@ def index():
     else:
         status = 'Successful login!'
         code = 1
-        res['SID'] = sess.insertuid(record[0])
+        res['SID'] = sess.insertuid(record[0], group)
 
     res['code'] = code
     res['status'] = status

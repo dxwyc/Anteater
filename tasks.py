@@ -10,15 +10,16 @@ def tasks_set():
     res = {}
     res['code'] = 0
     sess_num = reqh.get('Session')
+    sess_num = int(sess_num)
 
     if sess_num == None or sess.checkitem(sess_num) == False:
         res['status'] = 'Invalid Session!'
         return json.dumps(res)
 
-    uid = sess[sess_num]
+    uid, group = sess[sess_num]
 
     taskcursor = cnn.cursor()
-    taskcursor.execute("SELECT tid, taskname, type, introduction FROM tasks WHERE ispublic = 1")
+    taskcursor.execute("SELECT tid, taskname, type, introduction FROM tasks WHERE ispublic = {}".format(int(group in ['ADMIN', 'SUPER'])))
 
     res['tasks'] = []
 
@@ -38,12 +39,13 @@ def task_page():
     res = {}
     res['code'] = 0
     sess_num = reqh.get('Session')
+    sess_num = int(sess_num)
 
     if sess_num == None or sess.checkitem(sess_num) == False:
         res['status'] = 'Invalid Session!'
         return json.dumps(res)
 
-    uid = sess[sess_num]
+    uid, group = sess[sess_num]
     taskcursor = cnn.cursor()
 
     tid = request.args.get('tid', '--unk')
